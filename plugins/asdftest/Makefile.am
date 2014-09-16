@@ -43,12 +43,12 @@ asdftest_la_SOURCES = \
 	$(HEADER_FILES)
 
 asdftest_la_LDFLAGS = -module -avoid-version
-asdftest_la_LIBADD = @PLUGIN_LIBS@
+asdftest_la_LIBADD = @PLUGIN_LIBS@ 
 
 # Libs must be cleared, or else libtool won't create a shared module.
 # If your module needs to be linked against any particular libraries,
 # add them here.
-LIBS =
+LIBS = 
 
 #
 # Build plugin.c, which contains the plugin version[] string, a
@@ -110,11 +110,20 @@ MAINTAINERCLEANFILES = \
 	plugin.c
 
 EXTRA_DIST = \
+    asdftest-scanner.l  \
+    gen                 \
+    packet-asdftest.y   \
 	Makefile.common		\
 	Makefile.nmake		\
 	moduleinfo.nmake	\
 	plugin.rc.in		\
 	CMakeLists.txt
+
+RUNLEX = $(top_srcdir)/tools/runlex.sh
+
+asdftest-scanner.h : asdftest-scanner.c
+
+asdftest-scanner.lo : asdftest-scanner.h
 
 checkapi:
 	$(PERL) $(top_srcdir)/tools/checkAPIs.pl -g abort -g termoutput -build \

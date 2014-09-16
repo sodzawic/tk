@@ -1,0 +1,3 @@
+#!/bin/bash
+# set envirnoment to run the wireshark from the build directory
+export WIRESHARK_RUN_FROM_BUILD_DIRECTORY=1

@@ -224,12 +224,13 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(plugindir)"
 LTLIBRARIES = $(plugin_LTLIBRARIES)
 asdftest_la_DEPENDENCIES =
-am__objects_1 = packet-asdftest.lo
-am__objects_2 = $(am__objects_1)
+am__objects_1 = asdftest-scanner.lo
+am__objects_2 = packet-asdftest.lo
 am__objects_3 = $(am__objects_2)
-am__objects_4 =
-am__objects_5 = $(am__objects_4)
-am_asdftest_la_OBJECTS = plugin.lo $(am__objects_3) $(am__objects_5)
+am__objects_4 = $(am__objects_1) $(am__objects_3)
+am__objects_5 =
+am__objects_6 = $(am__objects_5)
+am_asdftest_la_OBJECTS = plugin.lo $(am__objects_4) $(am__objects_6)
 asdftest_la_OBJECTS = $(am_asdftest_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -568,6 +569,12 @@ AM_CPPFLAGS = -I$(top_srcdir)
 
 # the name of the plugin
 PLUGIN_NAME = asdftest
+FLEX_GENERATED_C_FILES = \
+	asdftest-scanner.c
+
+FLEX_GENERATED_HEADER_FILES = \
+	asdftest-scanner.h
+
 
 # Non-generated sources to be scanned for registration routines
 NONGENERATED_REGISTER_C_FILES = \
@@ -689,7 +696,7 @@ asdftest_la_SOURCES = \
 	$(HEADER_FILES)
 
 asdftest_la_LDFLAGS = -module -avoid-version
-asdftest_la_LIBADD = @PLUGIN_LIBS@
+asdftest_la_LIBADD = @PLUGIN_LIBS@ 
 
 #
 # Currently plugin.c can be included in the distribution because
@@ -717,12 +724,16 @@ MAINTAINERCLEANFILES = \
 	plugin.c
 
 EXTRA_DIST = \
+    asdftest-scanner.l  \
+    gen                 \
+    packet-asdftest.y   \
 	Makefile.common		\
 	Makefile.nmake		\
 	moduleinfo.nmake	\
 	plugin.rc.in		\
 	CMakeLists.txt
 
+RUNLEX = $(top_srcdir)/tools/runlex.sh
 all: all-am
 
 .SUFFIXES:
@@ -799,6 +810,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/asdftest-scanner.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/packet-asdftest.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/plugin.Plo@am__quote@
 
@@ -1078,6 +1090,10 @@ plugin.c: $(REGISTER_SRC_FILES) Makefile.common $(top_srcdir)/tools/make-dissect
 	@echo Making plugin.c
 	@$(PYTHON) $(top_srcdir)/tools/make-dissector-reg.py $(srcdir) \
 		plugin $(REGISTER_SRC_FILES)
+
+asdftest-scanner.h : asdftest-scanner.c
+
+asdftest-scanner.lo : asdftest-scanner.h
 
 checkapi:
 	$(PERL) $(top_srcdir)/tools/checkAPIs.pl -g abort -g termoutput -build \

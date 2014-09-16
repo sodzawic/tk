@@ -24,6 +24,12 @@
 # the name of the plugin
 PLUGIN_NAME = asdftest
 
+FLEX_GENERATED_C_FILES = \
+	asdftest-scanner.c
+
+FLEX_GENERATED_HEADER_FILES = \
+	asdftest-scanner.h
+
 # Non-generated sources to be scanned for registration routines
 NONGENERATED_REGISTER_C_FILES = \
 	packet-asdftest.c
