@@ -786,6 +786,7 @@ if(ENABLE_PLUGINS)
 		plugins/opcua
 		plugins/profinet
 		plugins/stats_tree
+		plugins/asdftest
 		plugins/unistim
 		plugins/wimax
 		plugins/wimaxasncp
@@ -913,6 +914,7 @@ set( IN_FILES
 	plugins/profinet/plugin.rc.in
 	plugins/m2m/plugin.rc.in
 	plugins/stats_tree/plugin.rc.in
+	plugins/asdftest/plugin.rc.in
 	plugins/wimaxasncp/plugin.rc.in
 	plugins/mate/plugin.rc.in
 	plugins/wimaxmacphy/plugin.rc.in

@@ -2950,6 +2950,7 @@ AC_OUTPUT(
   plugins/opcua/Makefile
   plugins/profinet/Makefile
   plugins/stats_tree/Makefile
+  plugins/asdftest/Makefile
   plugins/unistim/Makefile
   plugins/wimax/Makefile
   plugins/wimaxasncp/Makefile

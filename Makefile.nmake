@@ -283,7 +283,8 @@ wireshark.bsc: \
 	plugins\mate\*.sbr		\
 	plugins\opcua\*.sbr		\
 	plugins\profinet\*.sbr		\
-	plugins\stats_tree\*.sbr	\
+    plugins\stats_tree\*.sbr	\
+	plugins\asdftest\*.sbr	\
 	plugins\unistim\*.sbr		\
 	plugins\wimax\*.sbr		\
 	plugins\wimaxasncp\*.sbr	\

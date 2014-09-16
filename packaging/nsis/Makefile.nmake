@@ -52,6 +52,7 @@ PLUGINS= \
 	../../plugins/opcua/opcua.dll \
 	../../plugins/profinet/profinet.dll \
 	../../plugins/stats_tree/stats_tree.dll \
+	../../plugins/asdftest/asdftest.dll \
 	../../plugins/unistim/unistim.dll \
 	../../plugins/wimax/wimax.dll \
 	../../plugins/wimaxasncp/wimaxasncp.dll \
