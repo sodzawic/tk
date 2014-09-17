@@ -1725,12 +1725,6 @@ void asdftest_yyfree (void * ptr )
 
 
 
-/*
-void asdftest_scanner_scan_bytes(const char *bytes, int len) {
-    asdftest_yy_scan_bytes(bytes,len);
-}
-*/
-
 void asdftest_yy_delete_current_buffer(void) {
     asdftest_yy_delete_buffer(YY_CURRENT_BUFFER);
 }

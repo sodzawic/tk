@@ -47,7 +47,8 @@ static void dissect_asdftest(tvbuff_t *tvb, packet_info *pinfo,
     col_set_str(pinfo->cinfo, COL_PROTOCOL, "asdftest");
     col_clear(pinfo->cinfo, COL_INFO);
 
-    asdftest_yy_scan_bytes("asdf", 4);
+    asdftest_yy_scan_bytes((const char *)tvb_get_ptr(tvb, 0, -1), 
+            tvb_length(tvb));
     asdftest_yyparse();
     asdftest_yy_delete_current_buffer();
 }
