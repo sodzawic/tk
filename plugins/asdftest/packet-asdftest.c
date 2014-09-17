@@ -61,6 +61,14 @@
 /* Using locations.  */
 #define YYLSP_NEEDED 0
 
+/* Substitute the variable and function names.  */
+#define yyparse         asdftest_yyparse
+#define yylex           asdftest_yylex
+#define yyerror         asdftest_yyerror
+#define yylval          asdftest_yylval
+#define yychar          asdftest_yychar
+#define yydebug         asdftest_yydebug
+#define yynerrs         asdftest_yynerrs
 
 
 /* Copy the first part of user declarations.  */
@@ -77,12 +85,12 @@
 #include "packet-asdftest.h"
 
 
-int yylex(void);
-extern int yyparse(void);
-void asdftest_scanner_scan_bytes(const char *bytes, int len);
-void asdftest_scnner_delete_buffer(void);
+int asdftest_yylex(void);
+int asdftest_yyparse(void);
+void asdftest_yy_scan_bytes(const char *bytes, int len);
+void asdftest_yy_delete_current_buffer(void);
 
-static void yyerror(const char *s);
+static void asdftest_yyerror(const char *s);
 
 void proto_register_asdftest(void);
 void proto_reg_handoff_asdftest(void);
@@ -94,7 +102,7 @@ static int proto_asdftest = -1;
 
 
 /* Line 268 of yacc.c  */
-#line 98 "packet-asdftest.c"
+#line 106 "packet-asdftest.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -139,7 +147,7 @@ typedef int YYSTYPE;
 
 
 /* Line 343 of yacc.c  */
-#line 143 "packet-asdftest.c"
+#line 151 "packet-asdftest.c"
 
 #ifdef short
 # undef short
@@ -356,18 +364,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  3
+#define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   1
+#define YYLAST   2
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  4
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  2
+#define YYNNTS  3
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  3
+#define YYNRULES  4
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  4
+#define YYNSTATES  6
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -412,19 +420,19 @@ static const yytype_uint8 yytranslate[] =
    YYRHS.  */
 static const yytype_uint8 yyprhs[] =
 {
-       0,     0,     3,     4
+       0,     0,     3,     4,     5
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-       5,     0,    -1,    -1,     3,    -1
+       5,     0,    -1,    -1,    -1,     3,     6,     5,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    31,    31,    32
+       0,    31,    31,    32,    32
 };
 #endif
 
@@ -433,7 +441,7 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "TOK", "$accept", "packet", 0
+  "$end", "error", "$undefined", "TOK", "$accept", "packet", "$@1", 0
 };
 #endif
 
@@ -449,13 +457,13 @@ static const yytype_uint16 yytoknum[] =
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,     4,     5,     5
+       0,     4,     5,     6,     5
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     0,     1
+       0,     2,     0,     0,     3
 };
 
 /* YYDEFACT[STATE-NAME] -- Default reduction number in state STATE-NUM.
@@ -463,13 +471,13 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       2,     3,     0,     1
+       2,     3,     0,     2,     1,     4
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2
+      -1,     2,     3
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
@@ -477,13 +485,13 @@ static const yytype_int8 yydefgoto[] =
 #define YYPACT_NINF -4
 static const yytype_int8 yypact[] =
 {
-      -3,    -4,     1,    -4
+      -3,    -4,     1,    -3,    -4,    -4
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -4,    -4
+      -4,    -1,    -4
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -492,7 +500,7 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-       1,     3
+       1,     4,     5
 };
 
 #define yypact_value_is_default(yystate) \
@@ -503,14 +511,14 @@ static const yytype_uint8 yytable[] =
 
 static const yytype_uint8 yycheck[] =
 {
-       3,     0
+       3,     0,     3
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,     5,     0
+       0,     3,     5,     6,     0,     5
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1354,7 +1362,7 @@ yyreduce:
 
 
 /* Line 1806 of yacc.c  */
-#line 1358 "packet-asdftest.c"
+#line 1366 "packet-asdftest.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1588,7 +1596,7 @@ yyreturn:
 #line 35 "packet-asdftest.y"
 
 
-static void yyerror(const char *s) 
+static void asdftest_yyerror(const char *s) 
 {
     printf(" ERROR: %s\n", s);
 }
@@ -1601,9 +1609,9 @@ static void dissect_asdftest(tvbuff_t *tvb, packet_info *pinfo,
     col_set_str(pinfo->cinfo, COL_PROTOCOL, "asdftest");
     col_clear(pinfo->cinfo, COL_INFO);
 
-    asdftest_scanner_scan_bytes("asdf", 4);
-    yyparse();
-    asdftest_scnner_delete_buffer();
+    asdftest_yy_scan_bytes("asdf", 4);
+    asdftest_yyparse();
+    asdftest_yy_delete_current_buffer();
 }
 
 void proto_register_asdftest(void)

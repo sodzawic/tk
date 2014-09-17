@@ -2,18 +2,15 @@
     #include "packet-asdftest.h"
 %}
 
+%option prefix="asdftest_yy"
+
 %option nounput
 %option noinput
 %option noyywrap
 %%
-. {return TOK;}
+[a-z] {return TOK;}
 %%
 
-
-void asdftest_scanner_scan_bytes(const char *bytes, int len) {
-    yy_scan_bytes(bytes, len);
-}
-
-void asdftest_scnner_delete_buffer(void) {
-    yy_delete_buffer(YY_CURRENT_BUFFER);
+void asdftest_yy_delete_current_buffer(void) {
+    asdftest_yy_delete_buffer(YY_CURRENT_BUFFER);
 }

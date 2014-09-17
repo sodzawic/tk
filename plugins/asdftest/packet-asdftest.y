@@ -8,12 +8,12 @@
 #include "packet-asdftest.h"
 
 
-int yylex(void);
-extern int yyparse(void);
-void asdftest_scanner_scan_bytes(const char *bytes, int len);
-void asdftest_scnner_delete_buffer(void);
+int asdftest_yylex(void);
+int asdftest_yyparse(void);
+void asdftest_yy_scan_bytes(const char *bytes, int len);
+void asdftest_yy_delete_current_buffer(void);
 
-static void yyerror(const char *s);
+static void asdftest_yyerror(const char *s);
 
 void proto_register_asdftest(void);
 void proto_reg_handoff_asdftest(void);
@@ -29,12 +29,12 @@ static int proto_asdftest = -1;
 %%
 
 packet: /* empty */
-    | TOK {printf(" ------------------> TOK\n");}
+    | TOK {printf(" ------------------> TOK\n");} packet
     ;
 
 %%
 
-static void yyerror(const char *s) 
+static void asdftest_yyerror(const char *s) 
 {
     printf(" ERROR: %s\n", s);
 }
@@ -47,9 +47,9 @@ static void dissect_asdftest(tvbuff_t *tvb, packet_info *pinfo,
     col_set_str(pinfo->cinfo, COL_PROTOCOL, "asdftest");
     col_clear(pinfo->cinfo, COL_INFO);
 
-    asdftest_scanner_scan_bytes("asdf", 4);
-    yyparse();
-    asdftest_scnner_delete_buffer();
+    asdftest_yy_scan_bytes("asdf", 4);
+    asdftest_yyparse();
+    asdftest_yy_delete_current_buffer();
 }
 
 void proto_register_asdftest(void)

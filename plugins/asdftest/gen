@@ -1,3 +1,3 @@
 #!/bin/bash
 
-bison -d packet-asdftest.y -o packet-asdftest.c
+bison -p asdftest_yy -d packet-asdftest.y -o packet-asdftest.c
